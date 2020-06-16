@@ -20,29 +20,31 @@ const rightInactive = (
 );
 
 const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
-  console.log(dataOrderInfo);
-  console.log('status: ' + dataOrderInfo.orderStatus);
+  // console.log(dataOrderInfo);
+  // console.log('status: ' + dataOrderInfo[0].orderStatus);
   const [stateComp, setStateComp] = useState();
+
+  console.log(dataOrderInfo);
 
   let refFlat = useRef(null);
 
   useEffect(() => {
-    if (dataOrderInfo.orderStatus === 'accepted') {
+    if (dataOrderInfo[0].orderStatus === 'accepted') {
       setStateComp(1);
-    } else if (dataOrderInfo.orderStatus === 'pickup') {
+    } else if (dataOrderInfo[0].orderStatus === 'pickup') {
       setStateComp(2);
-    } else if (dataOrderInfo.orderStatus === 'loaded') {
+    } else if (dataOrderInfo[0].orderStatus === 'loaded') {
       setStateComp(3);
-    } else if (dataOrderInfo.orderStatus === 'in_transit') {
+    } else if (dataOrderInfo[0].orderStatus === 'in_transit') {
       setStateComp(4);
-    } else if (dataOrderInfo.orderStatus === 'dropoff') {
+    } else if (dataOrderInfo[0].orderStatus === 'dropoff') {
       setStateComp(5);
-    } else if (dataOrderInfo.orderStatus === 'unloaded') {
+    } else if (dataOrderInfo[0].orderStatus === 'unloaded') {
       setStateComp(6);
     } else {
       setStateComp(0);
     }
-  }, [dataOrderInfo.orderStatus]);
+  }, [dataOrderInfo[0].orderStatus]);
 
   return (
     <>
@@ -84,7 +86,6 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
                                   animated: true,
                                   index: index - 1,
                                 })
-
                               }>
                               <Text>{leftActive}</Text>
                             </TouchableNativeFeedback>
@@ -101,7 +102,6 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
                                 animated: true,
                                 index: index + 1,
                               })
-
                             }>
                             <Text>{rightActive}</Text>
                           </TouchableNativeFeedback>
@@ -129,12 +129,12 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
                       <View style={styles.tripDetailRow}>
                         <Text style={styles.subtitle}>
                           {/* {dataTripInfo.vehicleTransporterPlateNumber} */}
-                          NO DATA
+                          {item.order_trip.vehicleTransporterPlateNumber}
                         </Text>
                         <Text style={styles.tripValue}>
                           {' '}
-                          {/* - {dataTripInfo.vehicleTransporterType} */}- NO
-                          DATA
+                          {/* - {dataTripInfo.vehicleTransporterType} */}- {''}
+                          {item.order_trip.vehicleTransporterType}
                         </Text>
                       </View>
                     </View>
@@ -150,7 +150,10 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
                           {/* {
                             dataTripInfo.assignedTripVehicleTransporterPlanMaximumCBMDimension
                           } */}
-                          NO DATA
+                          {
+                            item.order_trip
+                              .assignedTripVehicleTransporterPlanMaximumCBMDimension
+                          }
                         </Text>
                         <Text style={styles.tripValue}> CBM</Text>
                       </View>
@@ -165,7 +168,10 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
                           {/* {
                             dataTripInfo.assignedTripVehicleTransporterPlanMaximumWeight
                           } */}
-                          NO DATA
+                          {
+                            item.order_trip
+                              .assignedTripVehicleTransporterPlanMaximumWeight
+                          }
                         </Text>
                         <Text style={styles.tripValue}> KG</Text>
                       </View>
@@ -173,7 +179,21 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
                   </View>
                   <View style={styles.orderInfo}>
                     <Text style={styles.title}>Order Information - #1</Text>
-                    <ProgressBar stateComp={stateComp} />
+                    {item.orderStatus === 'accepted' ? (
+                      <ProgressBar stateComp={1} />
+                    ) : item.orderStatus === 'pickup' ? (
+                      <ProgressBar stateComp={2} />
+                    ) : item.orderStatus === 'loaded' ? (
+                      <ProgressBar stateComp={3} />
+                    ) : item.orderStatus === 'in_transit' ? (
+                      <ProgressBar stateComp={4} />
+                    ) : item.orderStatus === 'dropoff' ? (
+                      <ProgressBar stateComp={5} />
+                    ) : item.orderStatus === 'unloaded' ? (
+                      <ProgressBar stateComp={6} />
+                    ) : (
+                      <ProgressBar stateComp={0} />
+                    )}
                     <View style={styles.orderDetailView}>
                       <Text style={styles.orderSubtitle}>Order ID</Text>
                       <Text style={styles.tripValue}>{item.orderID}</Text>

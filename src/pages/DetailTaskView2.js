@@ -35,7 +35,7 @@ const initialState = {
   loading: true,
   error: '',
   dataAssignedTrip: {},
-  dataOrderTrip: {},
+  dataOrderTrip: null,
   listOrder: [],
   origin: {},
   destination: {},
@@ -154,7 +154,7 @@ const DetailTaskView = ({navigation, route}) => {
 
   const getDataOrderTrip = async () => {
     await OrderDispatcherApi.get(
-      `/api/v1/dispatcher/${route.params.orderIdDispatcher}`,
+      `/api/v1/dispatcher/detail/${route.params.orderIdDispatcher}`,
     )
       .then((res) => {
         console.log(res.data);
