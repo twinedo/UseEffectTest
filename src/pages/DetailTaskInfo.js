@@ -24,27 +24,27 @@ const DetailTaskInfo = ({dataTripInfo, dataOrderInfo}) => {
   // console.log('status: ' + dataOrderInfo[0].orderStatus);
   const [stateComp, setStateComp] = useState();
 
-  console.log(dataOrderInfo);
+  // console.log(dataOrderInfo);
 
   let refFlat = useRef(null);
 
-  useEffect(() => {
-    if (dataOrderInfo[0].orderStatus === 'accepted') {
-      setStateComp(1);
-    } else if (dataOrderInfo[0].orderStatus === 'pickup') {
-      setStateComp(2);
-    } else if (dataOrderInfo[0].orderStatus === 'loaded') {
-      setStateComp(3);
-    } else if (dataOrderInfo[0].orderStatus === 'in_transit') {
-      setStateComp(4);
-    } else if (dataOrderInfo[0].orderStatus === 'dropoff') {
-      setStateComp(5);
-    } else if (dataOrderInfo[0].orderStatus === 'unloaded') {
-      setStateComp(6);
-    } else {
-      setStateComp(0);
-    }
-  }, [dataOrderInfo[0].orderStatus]);
+  // useEffect(() => {
+  //   if (dataOrderInfo[0].orderStatus === 'accepted') {
+  //     setStateComp(1);
+  //   } else if (dataOrderInfo[0].orderStatus === 'pickup') {
+  //     setStateComp(2);
+  //   } else if (dataOrderInfo[0].orderStatus === 'loaded') {
+  //     setStateComp(3);
+  //   } else if (dataOrderInfo[0].orderStatus === 'in_transit') {
+  //     setStateComp(4);
+  //   } else if (dataOrderInfo[0].orderStatus === 'dropoff') {
+  //     setStateComp(5);
+  //   } else if (dataOrderInfo[0].orderStatus === 'unloaded') {
+  //     setStateComp(6);
+  //   } else {
+  //     setStateComp(0);
+  //   }
+  // }, [dataOrderInfo[0].orderStatus]);
 
   return (
     <>
